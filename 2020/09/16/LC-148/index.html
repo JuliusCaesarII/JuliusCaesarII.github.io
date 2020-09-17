@@ -22,30 +22,33 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一种生物">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Someone&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="对LC_148链表排序的几种方法的总结 快速排序123456789101112131415161718192021222324252627282930313233343536373839&#x2F;** * Definition for singly-linked list. * struct ListNode &amp;#123; *     int val; *     ListNode *next; *">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LC_148">
+<meta property="og:url" content="http://example.com/2020/09/16/LC-148/index.html">
 <meta property="og:site_name" content="Someone&#39;s Blog">
-<meta property="og:description" content="一种生物">
+<meta property="og:description" content="对LC_148链表排序的几种方法的总结 快速排序123456789101112131415161718192021222324252627282930313233343536373839&#x2F;** * Definition for singly-linked list. * struct ListNode &amp;#123; *     int val; *     ListNode *next; *">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-16T07:24:15.000Z">
+<meta property="article:modified_time" content="2020-09-17T06:12:06.376Z">
 <meta property="article:author" content="No.20904">
+<meta property="article:tag" content="算法 链表 排序">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/09/16/LC-148/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Someone's Blog</title>
+  <title>LC_148 | Someone's Blog</title>
   
 
 
@@ -158,9 +161,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -176,10 +180,9 @@
       <meta itemprop="name" content="Someone's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/16/LC-148/" class="post-title-link" itemprop="url">LC_148</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          LC_148
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -232,13 +235,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>对LC_148链表排序的几种方法的总结</p>
+        <p>对LC_148链表排序的几种方法的总结</p>
 <h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">quick_sort</span><span class="params">(ListNode* head, ListNode* end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == end || head-&gt;next == end || head-&gt;next-&gt;next == end) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode *p = head-&gt;next;</span><br><span class="line">        ListNode *pp = p;</span><br><span class="line">        ListNode *tmp = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode *t = tmp;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next != end)&#123;</span><br><span class="line">            <span class="keyword">if</span> (p-&gt;next-&gt;val &lt; pp-&gt;val)&#123;</span><br><span class="line">                t-&gt;next = p-&gt;next;</span><br><span class="line">                t = t-&gt;next;</span><br><span class="line">                p-&gt;next = p-&gt;next-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        t-&gt;next = head-&gt;next;</span><br><span class="line">        head-&gt;next = tmp-&gt;next;</span><br><span class="line">        quick_sort(head, pp);</span><br><span class="line">        quick_sort(pp, end);</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!head || !head-&gt;next) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode* dummy_head = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        dummy_head-&gt;next = head;</span><br><span class="line">        <span class="keyword">return</span> quick_sort(dummy_head, <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h1 id="递归归并排序"><a href="#递归归并排序" class="headerlink" title="递归归并排序"></a>递归归并排序</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge_sort</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode *slow = head, *fast = head-&gt;next-&gt;next; <span class="comment">//注意fast初始化</span></span><br><span class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* r = merge_sort(slow-&gt;next);</span><br><span class="line">        slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* l = merge_sort(head);</span><br><span class="line">        <span class="keyword">return</span> merge(l, r);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l, ListNode* r)</span></span>&#123;</span><br><span class="line">        ListNode* tmp = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode* p = tmp;</span><br><span class="line">        <span class="keyword">while</span>(l &amp;&amp; r)&#123;</span><br><span class="line">            <span class="keyword">if</span> (l-&gt;val &lt; r-&gt;val)&#123;</span><br><span class="line">                p-&gt;next = l;</span><br><span class="line">                l = l-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                p-&gt;next = r;</span><br><span class="line">                r = r-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = l == <span class="literal">nullptr</span> ? r : l;</span><br><span class="line">        <span class="keyword">return</span> tmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> merge_sort(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>在写题过程中，如果将<em>fast</em>初始化为<em>head</em>，将会出现栈溢出，此时应该修改查找中点终止条件为<code>while(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)</code>。发生栈溢出的原因是当传入<em>head</em>只有两个节点的时候，<em>slow</em>会指向第二个节点，此时<em>left : head-&gt;node1-&gt;null</em>，<em>right:null</em>。 然后在<code>ListNode* l = merge_sort(head)</code>这一步会发生<em>stackoverflow</em>。</p>
 <h1 id="常数空间归并排序-bottom-to-up"><a href="#常数空间归并排序-bottom-to-up" class="headerlink" title="常数空间归并排序(bottom-to-up)"></a>常数空间归并排序(bottom-to-up)</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">cut</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">while</span>(--n &amp;&amp; p)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!p) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* next = p-&gt;next;</span><br><span class="line">        p-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span></span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy_head</span><span class="params">(<span class="number">-1</span>)</span></span>;</span><br><span class="line">        ListNode* p = &amp;dummy_head;</span><br><span class="line">        <span class="keyword">while</span> (l1 &amp;&amp; l2)&#123;</span><br><span class="line">            <span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">                p-&gt;next = l1;</span><br><span class="line">                p = l1;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                p-&gt;next = l2;</span><br><span class="line">                p = l2;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = l1 ? l1:l2;</span><br><span class="line">        <span class="keyword">return</span> dummy_head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy_head</span><span class="params">(<span class="number">-1</span>)</span></span>;</span><br><span class="line">        dummy_head.next = head;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (p)&#123;</span><br><span class="line">            ++ length;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> size = <span class="number">1</span>; size &lt; length; size &lt;&lt;= <span class="number">1</span>)&#123;</span><br><span class="line">            ListNode* cur = dummy_head.next;</span><br><span class="line">            ListNode* tail = &amp;dummy_head;</span><br><span class="line">            <span class="keyword">while</span> (cur)&#123;</span><br><span class="line">                ListNode* left = cur;</span><br><span class="line">                ListNode* right = cut(left, size);</span><br><span class="line">                cur = cut(right, size);</span><br><span class="line"></span><br><span class="line">                tail-&gt;next = merge(left, right);</span><br><span class="line">                <span class="keyword">while</span> (tail-&gt;next)&#123;</span><br><span class="line">                    tail = tail-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy_head.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
@@ -246,494 +248,36 @@
     
 
 	 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/16/%E5%A4%9A%E6%96%B9%E9%9D%A2%E7%9A%84%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="No.20904">
-      <meta itemprop="description" content="一种生物">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Someone's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/16/%E5%A4%9A%E6%96%B9%E9%9D%A2%E7%9A%84%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">多方面的目标及其实现方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-09-16 04:09:17 / 修改时间：05:27:05" itemprop="dateCreated datePublished" datetime="2020-09-16T04:09:17+08:00">2020-09-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%87%AA%E6%88%91/" itemprop="url" rel="index"><span itemprop="name">自我</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
+		<div>
+     <div>
     
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>总的来说，这是一篇对自我提出要求并给出方法论的文章。其目的在于记录下每天的行为是否符合长期利益、做出的决策是否有长远考量，同时用于自我的审视与有针对性的提高，致力于构建出一种完美的生活方式与范式。</p>
-<blockquote>
-<p><strong>任何个体</strong>，不管其是接受还是拒绝，本文均保有对其的约束力，这种权利由议会直接授权。</p>
-</blockquote>
-<h1 id="身体"><a href="#身体" class="headerlink" title="身体"></a>身体</h1><p>首先要明确的是第零原则：生命的延续<strong>永远</strong>摆在第一位。</p>
-<p>其次，需要明确的是第一原则：<strong>任何</strong>时间的自我个体，不管其处于何种处境、何种心理状态，均有对维持（并增强）这具身体健康、强壮水平的责任。</p>
-<p>然后我们来到第二原则，这是一条富有现实主义色彩的原则：在遇到短期事宜时，可以暂时损耗一定程度的身体条件，以换取超额的收益。这种损耗是有限度的，同时收益必须是超额的。</p>
-<p>第三原则：大脑的娱乐需求<strong>永远</strong>在身体健康的需求之下，且不适用于第二原则（即第二原则中的超额收益不得为超额多巴胺收益，这是出于长期主义的角度考量）。</p>
-<p>在构建完身体方面的基本原则之后，我们可以开始构建自我的方法论。这些内容主要来自当前个体觉得合适的各大网站内容，以及一系列的博客。对于其中提到的科学研究与结论，当前个体并没有实际查证过。</p>
-<blockquote>
-<p>当前个体极力推崇的报道为： <a target="_blank" rel="noopener" href="https://36kr.com/p/1722375487489">https://36kr.com/p/1722375487489</a></p>
-<p>你也可以查看相关原博客： <a target="_blank" rel="noopener" href="https://medium.com/@sergefaguet/biohack-your-intelligence-now-or-become-obsolete-97cdd15e395f">https://medium.com/@sergefaguet/biohack-your-intelligence-now-or-become-obsolete-97cdd15e395f</a></p>
-<p>以及: <a target="_blank" rel="noopener" href="https://hackernoon.com/im-32-and-spent-200k-on-biohacking-became-calmer-thinner-extroverted-healthier-happier-2a2e846ae113">https://hackernoon.com/im-32-and-spent-200k-on-biohacking-became-calmer-thinner-extroverted-healthier-happier-2a2e846ae113</a></p>
-<p>同时，知乎上的一些回答也是很有帮助的，他们已经被列在了当前个体的某个收藏夹中。</p>
-</blockquote>
-<ul>
-<li><p>睡眠</p>
-<p>睡眠永远是第一位的东西，没有高质量的睡眠就没有足够的精力，也就是说什么都没有。根据当前个体一系列的研究，睡眠必须保持以下几个特点：<strong>规律作息</strong>、<strong>充足睡眠</strong>、<strong>良好睡眠环境</strong>。</p>
-<p>睡眠时间是和当前个体的生存状态紧密联系的，在这里当前个体谨慎建议保持每天入睡时长在7.5个小时，这意味着每天在床上待8小时左右。</p>
-<p>目前而言，当前个体建议在十二点左右入睡并且在八点起床（这随时有可能改动）。</p>
-<p>良好的睡眠环境是可遇不可求的，可以通过佩戴眼罩与耳塞达成模拟效果。但注意，这些物品的使用体验并不那么舒适。</p>
-<p>如果实在难以入睡，当前个体就大脑目前状况分析应该是压力过大，这时候建议起床学习，当前个体相信一两道足够难度的动态规划足以消磨掉睡前时光。服用褪黑素是可行的，但只在压力不是难以入睡的原因时管用。</p>
-</li>
-<li><p>运动<br>考虑到当前的经济状况，运动是维持当前身体健康的主要手段。限于条件能进行的运动并不多，因此分析起来也比较简单。</p>
-<p>暂定为肱二头肌、肱三头肌交叉隔天训练，肩部与胸部交叉隔天训练，按斐波拉契数列每周五跑。</p>
-</li>
-<li><p>饮食</p>
-<p>鸡胸肉、鸡蛋、牛奶与玉米是好文明。水煮鸡胸肉最健康，但是当前个体相信每个个体都无法下咽，因此水煮之后香煎是比较推荐的。鸡蛋可以使用煮蛋器方便加工。玉米直接水煮即可。</p>
-<p>一半的重心在于限制主食摄入，这是能否减轻体重、防止困倦的关键。</p>
-</li>
-</ul>
-<h1 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h1><p>学习是相对而言制定原则最简单的。在这里简要给出原则。</p>
-<p>第零原则： 学习需要绝对的专注。</p>
-<p>第一原则： 在有精力的情况下，学习永远优于追逐多巴胺的简单行为。</p>
-<p>第二原则： 学习的目的是彻底掌握，而不是记忆背诵。</p>
-<p>第三原则： 学习的过程中不允许摄入其他信息。</p>
-<ul>
-<li><p>操作系统</p>
-<p>操作系统导论复读 + 实现操作系统</p>
-</li>
-<li><p>数据结构与算法</p>
-<p>ACwing + LeetCode</p>
-</li>
-<li><p>计算机网络</p>
-<p>基础知识快速记忆。</p>
-</li>
-<li><p>实际项目</p>
-<p>json库编写。</p>
-<p>C++ 网络编程。</p>
-<p>引擎开发。</p>
-</li>
-<li><p>英语</p>
-</li>
-</ul>
-<h1 id="兴趣爱好"><a href="#兴趣爱好" class="headerlink" title="兴趣爱好"></a>兴趣爱好</h1><ul>
-<li>学习历史</li>
-<li>制作音乐</li>
-<li>编写游戏</li>
-</ul>
-<h1 id="当前的时间规划"><a href="#当前的时间规划" class="headerlink" title="当前的时间规划"></a>当前的时间规划</h1><p>第零原则：只有黑白地带，没有灰色地带。当前个体有责任和义务记录每一时段的身体与大脑在进行哪方面的活动，无法定义的时间段是不被议会接受的。这条原则意味着手机与信息流服务将从当前个体的生活中近乎消失。</p>
-<p>第一原则：睡眠&gt;学习&gt;运动&gt;兴趣爱好&gt;追逐多巴胺。</p>
-<p>第二原则：尽可能地多学习。</p>
-<p>第三原则：对于优先级的前三者，要防止饥饿现象发生。</p>
-<ul>
-<li>八点</li>
-</ul>
-<p>起床，服用每天需要服用的药物。</p>
-<p>洗漱，如厕，下楼购置早餐。</p>
-<p>查看手机。</p>
-<p>制定今天计划。</p>
-<ul>
-<li>九点</li>
-</ul>
-<p>开始学习</p>
-<ul>
-<li>十一点半</li>
-</ul>
-<p>做饭</p>
-<ul>
-<li>十二点半</li>
-</ul>
-<p>洗碗</p>
-<ul>
-<li>一点</li>
-</ul>
-<p>学习</p>
-<ul>
-<li>六点</li>
-</ul>
-<p>做饭</p>
-<ul>
-<li>七点</li>
-</ul>
-<p>兴趣爱好时间</p>
-<ul>
-<li>九点</li>
-</ul>
-<p>学习</p>
-<ul>
-<li>十一点</li>
-</ul>
-<p>锻炼+跑步+洗澡</p>
-<ul>
-<li>十二点</li>
-</ul>
-<p>入睡</p>
-<h1 id="为什么你应当听从本文建议"><a href="#为什么你应当听从本文建议" class="headerlink" title="为什么你应当听从本文建议"></a>为什么你应当听从本文建议</h1><p>众所周知，这具身体与大脑长期以来遭受着一些苦难，生理上的与心理上的。为了对抗这种苦难，对抗现实的引力与内心的折磨，也为了让能报复这一切的日子早日到来，我们呼吁<strong>所有个体</strong>遵循本文的建议，并在有充分根据的情况下对其进行改进或修改。</p>
-<p>对于所有明显违背本文宗旨的个体，议会也会有恰当或者严厉的处罚措施。</p>
-<p>限制我们的不是天空，不是大海，也不会是身体与大脑。</p>
-
-      
-    </div>
-
-    
-    
-    
-
+</div>
+		</div>
 	 
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8-%E6%8E%92%E5%BA%8F/" rel="tag"># 算法 链表 排序</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/16/test/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="No.20904">
-      <meta itemprop="description" content="一种生物">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Someone's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/16/test/" class="post-title-link" itemprop="url">简单测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-09-16 04:00:00 / 修改时间：18:44:12" itemprop="dateCreated datePublished" datetime="2020-09-16T04:00:00+08:00">2020-09-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index"><span itemprop="name">test</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>246</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h4 id="x日程表"><a href="#x日程表" class="headerlink" title="x日程表"></a>x日程表</h4><table>
-<thead>
-<tr>
-<th>时间</th>
-<th align="center">类别</th>
-<th align="center">具体事项</th>
-<th align="center">时间</th>
-<th align="center">类别</th>
-<th align="right">具体事项</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">0:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>1:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">1:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>2:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">2:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>3:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">3:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>4:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">4:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>5:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">5:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>6:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">6:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>7:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">7:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>8:00</td>
-<td align="center">学习</td>
-<td align="center"></td>
-<td align="center">8:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>9:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">9:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>10:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">10:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>11:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">11:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>12:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">12:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>13:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">13:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>14:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">14:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>15:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">15:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>16:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">16:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>17:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">17:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>18:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">18:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>19:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">19:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>20:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">20:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>21:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">21:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>22:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">22:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>23:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">23:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/16/%E5%A4%9A%E6%96%B9%E9%9D%A2%E7%9A%84%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" rel="prev" title="多方面的目标及其实现方法">
+      <i class="fa fa-chevron-left"></i> 多方面的目标及其实现方法
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-
-	 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -786,6 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">递归归并排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0%E7%A9%BA%E9%97%B4%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F-bottom-to-up"><span class="nav-number">3.</span> <span class="nav-text">常数空间归并排序(bottom-to-up)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
