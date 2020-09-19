@@ -189,7 +189,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-19 15:26:47 / 修改时间：16:02:12" itemprop="dateCreated datePublished" datetime="2020-09-19T15:26:47+08:00">2020-09-19</time>
+              <time title="创建时间：2020-09-19 15:26:47 / 修改时间：20:02:21" itemprop="dateCreated datePublished" datetime="2020-09-19T15:26:47+08:00">2020-09-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,12 +227,14 @@
 
       
           <h1 id="LC-445两数相加II"><a href="#LC-445两数相加II" class="headerlink" title="LC_445两数相加II"></a>LC_445两数相加II</h1><p>题干要求不能对输入链表进行变化，于是采取先裸加，然后对得到的链表进行处理的思路。应该比较简单，但是还是粗心出了不少bug，包括但不限于没有<code>t = t-&gt;next</code>，翻转链表头结点定义错等等。比较愚蠢，学习了一下优秀的解法。</p>
-<h2 id="暴力"><a href="#暴力" class="headerlink" title="暴力"></a>暴力</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverse</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        ListNode* pre = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span> (cur)&#123;</span><br><span class="line">            ListNode* tmp = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">while</span> (p)&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; p-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">add</span><span class="params">(ListNode* l1, ListNode* l2, <span class="keyword">int</span> diff)</span></span>&#123;</span><br><span class="line">        ListNode* res = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode* rres = res;</span><br><span class="line">        ListNode* p1 = l1;</span><br><span class="line">        ListNode* p2 = l2;</span><br><span class="line">        <span class="keyword">while</span>(diff --) &#123;</span><br><span class="line">            res-&gt;next = p1;</span><br><span class="line">            p1 = p1-&gt;next;</span><br><span class="line">            res = res-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        res-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (p1 &amp;&amp; p2)&#123;</span><br><span class="line">            ListNode* tmp = <span class="keyword">new</span> ListNode(p1-&gt;val + p2-&gt;val);</span><br><span class="line">            res-&gt;next = tmp;</span><br><span class="line">            p1 = p1-&gt;next;</span><br><span class="line">            p2 = p2-&gt;next;</span><br><span class="line">            res = res-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        res = reverse(rres-&gt;next);</span><br><span class="line">        ListNode* t = res;</span><br><span class="line">        <span class="keyword">while</span> (t-&gt;next)&#123;</span><br><span class="line">            <span class="keyword">if</span> (t-&gt;val &gt; <span class="number">9</span>) t-&gt;val -= <span class="number">10</span>, t-&gt;next-&gt;val ++;</span><br><span class="line">            t = t-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (t-&gt;val &gt; <span class="number">9</span>)&#123;</span><br><span class="line">            ListNode* tt = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">            t-&gt;next = tt;</span><br><span class="line">            t-&gt;val -= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res = reverse(res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length_1 = <span class="number">0</span>, length_2 = <span class="number">0</span>;</span><br><span class="line">        ListNode* p1 = l1;</span><br><span class="line">        ListNode* p2 = l2;</span><br><span class="line">        <span class="keyword">while</span> (p1)&#123;</span><br><span class="line">            p1 = p1-&gt;next;</span><br><span class="line">            length_1 ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (p2)&#123;</span><br><span class="line">            p2 = p2-&gt;next;</span><br><span class="line">            length_2 ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> diff = length_1 - length_2;</span><br><span class="line">        <span class="keyword">if</span> (diff &lt; <span class="number">0</span>) <span class="keyword">return</span> add(l2, l1, -diff);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> add(l1, l2, diff);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>速度甚至比暴力慢:)。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</span><br><span class="line">        <span class="keyword">while</span> (l1)&#123;</span><br><span class="line">            stack1.push(l1-&gt;val);</span><br><span class="line">            l1 = l1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (l2)&#123;</span><br><span class="line">            stack2.push(l2-&gt;val);</span><br><span class="line">            l2 = l2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">        ListNode* head = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span> (!stack1.empty() || !stack2.empty() || carry &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = carry;</span><br><span class="line">            sum += stack1.empty() ? <span class="number">0</span> : stack1.top();</span><br><span class="line">            sum += stack2.empty() ? <span class="number">0</span> : stack2.top();</span><br><span class="line">            <span class="keyword">if</span> (!stack1.empty()) stack1.pop();</span><br><span class="line">            <span class="keyword">if</span> (!stack2.empty()) stack2.pop();</span><br><span class="line">            ListNode* node = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            node-&gt;next = head;</span><br><span class="line">            head = node;</span><br><span class="line">            carry = sum / <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>还有一种补齐位数后进行递归的解法。累了，下次有空再改。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/19/LC-445%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0II/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -276,7 +278,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-19 14:44:54 / 修改时间：18:23:13" itemprop="dateCreated datePublished" datetime="2020-09-19T14:44:54+08:00">2020-09-19</time>
+              <time title="创建时间：2020-09-19 14:44:54 / 修改时间：20:03:41" itemprop="dateCreated datePublished" datetime="2020-09-19T14:44:54+08:00">2020-09-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,10 +316,14 @@
 
       
           <h1 id="LC-817链表组件"><a href="#LC-817链表组件" class="headerlink" title="LC_817链表组件"></a>LC_817链表组件</h1><p>读清题意后发现是个easy题。重点在于使用<em>Unordered_Set</em>减少查找时间。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numComponents</span><span class="params">(ListNode* head, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; G)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">set</span><span class="params">(G.begin(), G.end())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        ListNode* pre = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        pre-&gt;next = head;</span><br><span class="line">        <span class="keyword">while</span> (pre-&gt;next)&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">set</span>.find(pre-&gt;next-&gt;val) != <span class="built_in">set</span>.end()) pre = pre-&gt;next;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">set</span>.find(pre-&gt;val) != <span class="built_in">set</span>.end()) res ++;</span><br><span class="line">                pre = pre-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">set</span>.find(pre-&gt;val) != <span class="built_in">set</span>.end()) res ++;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>优雅一点可以直接:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numComponents</span><span class="params">(ListNode* head, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; G)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">set</span><span class="params">(G.begin(), G.end())</span></span>;</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (head) &#123;</span><br><span class="line">        <span class="comment">//set中存在head节点</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">set</span>.find(head-&gt;val) != <span class="built_in">set</span>.end()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!head-&gt;next || <span class="built_in">set</span>.find(head-&gt;next-&gt;val) == <span class="built_in">set</span>.end()) &#123;</span><br><span class="line">                result ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        head = head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/19/LC-817%E9%93%BE%E8%A1%A8%E7%BB%84%E4%BB%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -367,7 +373,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:22:08" itemprop="dateModified" datetime="2020-09-19T18:22:08+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:04:09" itemprop="dateModified" datetime="2020-09-19T20:04:09+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -405,15 +411,14 @@
 
       
           <h1 id="JZ-Offer-52两个链表的第一个公共节点"><a href="#JZ-Offer-52两个链表的第一个公共节点" class="headerlink" title="JZ_Offer_52两个链表的第一个公共节点"></a>JZ_Offer_52两个链表的第一个公共节点</h1><p>第一种常规做法，求出长度差值然后长链表先走断链表后走即可。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!headA || !headB) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">int</span> A_length = <span class="number">0</span>, B_length = <span class="number">0</span>;</span><br><span class="line">        ListNode* p1 = headA;</span><br><span class="line">        ListNode* p2 = headB;</span><br><span class="line">        <span class="keyword">while</span> (p1)&#123;</span><br><span class="line">            p1 = p1-&gt;next;</span><br><span class="line">            A_length ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (p2)&#123;</span><br><span class="line">            p2 = p2-&gt;next;</span><br><span class="line">            B_length ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> diff = A_length - B_length;</span><br><span class="line">        <span class="keyword">return</span> diff &gt;= <span class="number">0</span> ? getNode(headA, headB, diff) : getNode(headB, headA, -diff);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">getNode</span><span class="params">(ListNode* headA, ListNode* headB, <span class="keyword">int</span> diff)</span></span>&#123;</span><br><span class="line">        ListNode* p1 = headA;</span><br><span class="line">        ListNode* p2 = headB;</span><br><span class="line">        <span class="keyword">while</span> (diff -- ) p1 = p1-&gt;next;</span><br><span class="line">        <span class="keyword">if</span> (p1 == p2) <span class="keyword">return</span> p1;</span><br><span class="line">        <span class="keyword">while</span> (p1 &amp;&amp; p2 &amp;&amp; p1 != p2)&#123;</span><br><span class="line">            p1 = p1-&gt;next;</span><br><span class="line">            p2 = p2-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (p1 == p2) <span class="keyword">return</span> p1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>第二种比较有意思的代码，双指针不断寻找。<br>设交集链表长c,链表1除交集的长度为a，链表2除交集的长度为b，有</p>
-<ul>
-<li>a + c + b = b + c + a</li>
-<li>若无交集，则a + b = b + a<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        ListNode *node1 = headA;</span><br><span class="line">        ListNode *node2 = headB;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (node1 != node2) &#123;</span><br><span class="line">            node1 = node1 != <span class="literal">NULL</span> ? node1-&gt;next : headB;</span><br><span class="line">            node2 = node2 != <span class="literal">NULL</span> ? node2-&gt;next : headA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/18/JZ-Offer-52%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -463,7 +468,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:22:27" itemprop="dateModified" datetime="2020-09-19T18:22:27+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:03:58" itemprop="dateModified" datetime="2020-09-19T20:03:58+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -501,14 +506,14 @@
 
       
           <h1 id="常见排列问题"><a href="#常见排列问题" class="headerlink" title="常见排列问题"></a>常见排列问题</h1><h2 id="LC-31求解下一个排列"><a href="#LC-31求解下一个排列" class="headerlink" title="LC_31求解下一个排列"></a>LC_31求解下一个排列</h2><p>要分析清楚题意。<br>首先，从尾部向头部搜索，找到第一个比其后驱大的数（如果不存在，则说明没有下一个排列，可直接返回<em>reverse</em>后的数组）。然后，假设其位置为<em>i-1</em>，在(<em>i</em>,<em>nums.size()-1</em>]中寻找大于<em>nums[i]<em>的最小的数，并与其交换。最后对（</em>i+1</em>,<em>end</em>）进行排序即可。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextPermutation</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i - <span class="number">1</span>] &gt;= nums[i]) -- i;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span>) reverse(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> j = nums.size() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &gt; i &amp;&amp; nums[j] &lt;= nums[i - <span class="number">1</span>]) -- j;</span><br><span class="line">            swap(nums[i - <span class="number">1</span>], nums[j]);</span><br><span class="line">            sort(nums.begin() + i, nums.end());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="LC-46全排列"><a href="#LC-46全排列" class="headerlink" title="LC_46全排列"></a>LC_46全排列</h2><p>标准的回溯题。不使用标记数组节省空间。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; res, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; outputs, <span class="keyword">int</span> first, <span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (first == size)&#123;</span><br><span class="line">            res.push_back(outputs);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = first; i &lt; size; i ++ )&#123;</span><br><span class="line">            swap(outputs[i], outputs[first]);</span><br><span class="line">            back(res, outputs, first + <span class="number">1</span>, size);</span><br><span class="line">            swap(outputs[i], outputs[first]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">permute</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        back(res, nums, <span class="number">0</span>, (<span class="keyword">int</span>)nums.size());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="LC-47无重复的全排列"><a href="#LC-47无重复的全排列" class="headerlink" title="LC_47无重复的全排列"></a>LC_47无重复的全排列</h2><p>标准的回溯题。需要加判断以避免重复的排列出现。即<code>if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1] &amp;&amp; !vis[i - 1]) continue;</code>。这句话规定了相同大小的数字在排列里的出场顺序，只有在前一个相同的数已经用过后，才能将当前数放进去。将<code>!vis[i - 1]</code>改为<code>vis[i - 1]</code>也有相同作用。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vis;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; ans,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> idx, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; out)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (idx == nums.size())&#123;</span><br><span class="line">            ans.push_back(out);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++ )&#123;</span><br><span class="line">            <span class="keyword">if</span> (vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>] &amp;&amp; !vis[i - <span class="number">1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            out.push_back(nums[i]);</span><br><span class="line">            vis[i] = <span class="number">1</span>;</span><br><span class="line">            backtrack(ans, nums, idx + <span class="number">1</span>, out);</span><br><span class="line">            vis[i] = <span class="number">0</span>;</span><br><span class="line">            out.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">permuteUnique</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; out;</span><br><span class="line">        vis.resize(nums.size());</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        backtrack(ans, nums, <span class="number">0</span>, out);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/18/LC-31-46-47%E6%95%B0%E7%BB%84%E6%8E%92%E5%88%97/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -558,7 +563,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:22:17" itemprop="dateModified" datetime="2020-09-19T18:22:17+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:04:03" itemprop="dateModified" datetime="2020-09-19T20:04:03+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -596,7 +601,14 @@
 
       
           <h1 id="LC-25按K个一组翻转链表"><a href="#LC-25按K个一组翻转链表" class="headerlink" title="LC_25按K个一组翻转链表"></a>LC_25按K个一组翻转链表</h1><p>比较简单，核心是翻转链表时返回头结点和尾结点。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    pair&lt;ListNode*, ListNode*&gt; reverse(ListNode* head, ListNode* tail)&#123;</span><br><span class="line">        ListNode* pre = tail-&gt;next;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span> (pre != tail)&#123;</span><br><span class="line">            ListNode* tmp = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;tail, head&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        ListNode* dummy_head = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        dummy_head-&gt;next = head;</span><br><span class="line">        ListNode* pre = dummy_head;</span><br><span class="line">        <span class="keyword">while</span> (head)&#123;</span><br><span class="line">            ListNode* tail = pre;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i ++ )&#123;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                <span class="keyword">if</span> (!tail) <span class="keyword">return</span> dummy_head-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ListNode* nex = tail-&gt;next;</span><br><span class="line">            tie(head, tail) = reverse(head, tail);</span><br><span class="line">            pre-&gt;next = head;</span><br><span class="line">            tail-&gt;next = nex;</span><br><span class="line">            pre = tail;</span><br><span class="line">            head = tail-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy_head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/17/LC-25K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -646,7 +658,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:22:48" itemprop="dateModified" datetime="2020-09-19T18:22:48+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:03:52" itemprop="dateModified" datetime="2020-09-19T20:03:52+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -684,9 +696,14 @@
 
       
           <h1 id="LC-147对链表进行插入排序"><a href="#LC-147对链表进行插入排序" class="headerlink" title="LC_147对链表进行插入排序"></a>LC_147对链表进行插入排序</h1><p>比较简单。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">insertionSortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!head || !head-&gt;next) <span class="keyword">return</span> head;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy_head</span><span class="params">(<span class="number">-1</span>)</span></span>;</span><br><span class="line">        dummy_head.next = head;</span><br><span class="line">        ListNode* p = &amp;dummy_head;</span><br><span class="line">        ListNode* cur = p;</span><br><span class="line">        <span class="keyword">while</span> (cur &amp;&amp; cur-&gt;next)&#123;</span><br><span class="line">            <span class="keyword">if</span> (cur-&gt;val &lt;= cur-&gt;next-&gt;val)&#123;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            p = &amp;dummy_head;</span><br><span class="line">            <span class="keyword">while</span>(p-&gt;next != cur-&gt;next &amp;&amp; p-&gt;next-&gt;val &lt; cur-&gt;next-&gt;val)&#123;</span><br><span class="line">                p = p-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (p-&gt;next != cur-&gt;next)&#123;</span><br><span class="line">                ListNode* tmp = cur-&gt;next;</span><br><span class="line">                cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">                tmp-&gt;next = p-&gt;next;</span><br><span class="line">                p-&gt;next = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy_head.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>主要优化是比较一下<em>cur-&gt;val</em>与<em>cur-&gt;next-&gt;val</em>的大小，如果<em>cur-&gt;next-&gt;val</em>更大，这说明这一项不用进行插入排序。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/17/LC-147%E9%93%BE%E8%A1%A8%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -736,7 +753,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:22:45" itemprop="dateModified" datetime="2020-09-19T18:22:45+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:03:45" itemprop="dateModified" datetime="2020-09-19T20:03:45+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -774,11 +791,14 @@
 
       
           <p>对LC_148链表排序的几种方法的总结</p>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">quick_sort</span><span class="params">(ListNode* head, ListNode* end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == end || head-&gt;next == end || head-&gt;next-&gt;next == end) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode *p = head-&gt;next;</span><br><span class="line">        ListNode *pp = p;</span><br><span class="line">        ListNode *tmp = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode *t = tmp;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next != end)&#123;</span><br><span class="line">            <span class="keyword">if</span> (p-&gt;next-&gt;val &lt; pp-&gt;val)&#123;</span><br><span class="line">                t-&gt;next = p-&gt;next;</span><br><span class="line">                t = t-&gt;next;</span><br><span class="line">                p-&gt;next = p-&gt;next-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        t-&gt;next = head-&gt;next;</span><br><span class="line">        head-&gt;next = tmp-&gt;next;</span><br><span class="line">        quick_sort(head, pp);</span><br><span class="line">        quick_sort(pp, end);</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!head || !head-&gt;next) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode* dummy_head = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        dummy_head-&gt;next = head;</span><br><span class="line">        <span class="keyword">return</span> quick_sort(dummy_head, <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="递归归并排序"><a href="#递归归并排序" class="headerlink" title="递归归并排序"></a>递归归并排序</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge_sort</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode *slow = head, *fast = head-&gt;next-&gt;next; <span class="comment">//注意fast初始化</span></span><br><span class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* r = merge_sort(slow-&gt;next);</span><br><span class="line">        slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* l = merge_sort(head);</span><br><span class="line">        <span class="keyword">return</span> merge(l, r);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l, ListNode* r)</span></span>&#123;</span><br><span class="line">        ListNode* tmp = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode* p = tmp;</span><br><span class="line">        <span class="keyword">while</span>(l &amp;&amp; r)&#123;</span><br><span class="line">            <span class="keyword">if</span> (l-&gt;val &lt; r-&gt;val)&#123;</span><br><span class="line">                p-&gt;next = l;</span><br><span class="line">                l = l-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                p-&gt;next = r;</span><br><span class="line">                r = r-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = l == <span class="literal">nullptr</span> ? r : l;</span><br><span class="line">        <span class="keyword">return</span> tmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> merge_sort(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在写题过程中，如果将<em>fast</em>初始化为<em>head</em>，将会出现栈溢出，此时应该修改查找中点终止条件为<code>while(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)</code>。发生栈溢出的原因是当传入<em>head</em>只有两个节点的时候，<em>slow</em>会指向第二个节点，此时<em>left : head-&gt;node1-&gt;null</em>，<em>right:null</em>。 然后在<code>ListNode* l = merge_sort(head)</code>这一步会发生<em>stackoverflow</em>。</p>
-<h1 id="常数空间归并排序-bottom-to-up"><a href="#常数空间归并排序-bottom-to-up" class="headerlink" title="常数空间归并排序(bottom-to-up)"></a>常数空间归并排序(bottom-to-up)</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">cut</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">while</span>(--n &amp;&amp; p)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!p) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* next = p-&gt;next;</span><br><span class="line">        p-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span></span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy_head</span><span class="params">(<span class="number">-1</span>)</span></span>;</span><br><span class="line">        ListNode* p = &amp;dummy_head;</span><br><span class="line">        <span class="keyword">while</span> (l1 &amp;&amp; l2)&#123;</span><br><span class="line">            <span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">                p-&gt;next = l1;</span><br><span class="line">                p = l1;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                p-&gt;next = l2;</span><br><span class="line">                p = l2;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = l1 ? l1:l2;</span><br><span class="line">        <span class="keyword">return</span> dummy_head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy_head</span><span class="params">(<span class="number">-1</span>)</span></span>;</span><br><span class="line">        dummy_head.next = head;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (p)&#123;</span><br><span class="line">            ++ length;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> size = <span class="number">1</span>; size &lt; length; size &lt;&lt;= <span class="number">1</span>)&#123;</span><br><span class="line">            ListNode* cur = dummy_head.next;</span><br><span class="line">            ListNode* tail = &amp;dummy_head;</span><br><span class="line">            <span class="keyword">while</span> (cur)&#123;</span><br><span class="line">                ListNode* left = cur;</span><br><span class="line">                ListNode* right = cut(left, size);</span><br><span class="line">                cur = cut(right, size);</span><br><span class="line"></span><br><span class="line">                tail-&gt;next = merge(left, right);</span><br><span class="line">                <span class="keyword">while</span> (tail-&gt;next)&#123;</span><br><span class="line">                    tail = tail-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy_head.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/16/LC-148%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -828,7 +848,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 18:26:43" itemprop="dateModified" datetime="2020-09-19T18:26:43+08:00">2020-09-19</time>
+                <time title="修改时间：2020-09-19 20:03:29" itemprop="dateModified" datetime="2020-09-19T20:03:29+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -866,115 +886,14 @@
 
       
           <p>总的来说，这是一篇对自我提出要求并给出方法论的文章。其目的在于记录下每天的行为是否符合长期利益、做出的决策是否有长远考量，同时用于自我的审视与有针对性的提高，致力于构建出一种完美的生活方式与范式。</p>
-<blockquote>
-<p><strong>任何个体</strong>，不管其是接受还是拒绝，本文均保有对其的约束力，这种权利由议会直接授权。</p>
-</blockquote>
-<h1 id="身体"><a href="#身体" class="headerlink" title="身体"></a>身体</h1><p>首先要明确的是第零原则：生命的延续<strong>永远</strong>摆在第一位。</p>
-<p>其次，需要明确的是第一原则：<strong>任何</strong>时间的自我个体，不管其处于何种处境、何种心理状态，均有对维持（并增强）这具身体健康、强壮水平的责任。</p>
-<p>然后我们来到第二原则，这是一条富有现实主义色彩的原则：在遇到短期事宜时，可以暂时损耗一定程度的身体条件，以换取超额的收益。这种损耗是有限度的，同时收益必须是超额的。</p>
-<p>第三原则：大脑的娱乐需求<strong>永远</strong>在身体健康的需求之下，且不适用于第二原则（即第二原则中的超额收益不得为超额多巴胺收益，这是出于长期主义的角度考量）。</p>
-<p>在构建完身体方面的基本原则之后，我们可以开始构建自我的方法论。这些内容主要来自当前个体觉得合适的各大网站内容，以及一系列的博客。对于其中提到的科学研究与结论，当前个体并没有实际查证过。</p>
-<blockquote>
-<p>当前个体极力推崇的报道为： <a target="_blank" rel="noopener" href="https://36kr.com/p/1722375487489">https://36kr.com/p/1722375487489</a></p>
-<p>你也可以查看相关原博客： <a target="_blank" rel="noopener" href="https://medium.com/@sergefaguet/biohack-your-intelligence-now-or-become-obsolete-97cdd15e395f">https://medium.com/@sergefaguet/biohack-your-intelligence-now-or-become-obsolete-97cdd15e395f</a></p>
-<p>以及: <a target="_blank" rel="noopener" href="https://hackernoon.com/im-32-and-spent-200k-on-biohacking-became-calmer-thinner-extroverted-healthier-happier-2a2e846ae113">https://hackernoon.com/im-32-and-spent-200k-on-biohacking-became-calmer-thinner-extroverted-healthier-happier-2a2e846ae113</a></p>
-<p>同时，知乎上的一些回答也是很有帮助的，他们已经被列在了当前个体的某个收藏夹中。</p>
-</blockquote>
-<ul>
-<li><p>睡眠</p>
-<p>睡眠永远是第一位的东西，没有高质量的睡眠就没有足够的精力，也就是说什么都没有。根据当前个体一系列的研究，睡眠必须保持以下几个特点：<strong>规律作息</strong>、<strong>充足睡眠</strong>、<strong>良好睡眠环境</strong>。</p>
-<p>睡眠时间是和当前个体的生存状态紧密联系的，在这里当前个体谨慎建议保持每天入睡时长在7.5个小时，这意味着每天在床上待8小时左右。</p>
-<p>目前而言，当前个体建议在十二点左右入睡并且在八点起床（这随时有可能改动）。</p>
-<p>良好的睡眠环境是可遇不可求的，可以通过佩戴眼罩与耳塞达成模拟效果。但注意，这些物品的使用体验并不那么舒适。</p>
-<p>如果实在难以入睡，当前个体就大脑目前状况分析应该是压力过大，这时候建议起床学习，当前个体相信一两道足够难度的动态规划足以消磨掉睡前时光。服用褪黑素是可行的，但只在压力不是难以入睡的原因时管用。</p>
-</li>
-<li><p>运动<br>考虑到当前的经济状况，运动是维持当前身体健康的主要手段。限于条件能进行的运动并不多，因此分析起来也比较简单。</p>
-<p>暂定为肱二头肌、肱三头肌交叉隔天训练，肩部与胸部交叉隔天训练，按斐波拉契数列每周五跑。</p>
-</li>
-<li><p>饮食</p>
-<p>鸡胸肉、鸡蛋、牛奶与玉米是好文明。水煮鸡胸肉最健康，但是当前个体相信每个个体都无法下咽，因此水煮之后香煎是比较推荐的。鸡蛋可以使用煮蛋器方便加工。玉米直接水煮即可。</p>
-<p>一半的重心在于限制主食摄入，这是能否减轻体重、防止困倦的关键。</p>
-</li>
-</ul>
-<h1 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h1><p>学习是相对而言制定原则最简单的。在这里简要给出原则。</p>
-<p>第零原则： 学习需要绝对的专注。</p>
-<p>第一原则： 在有精力的情况下，学习永远优于追逐多巴胺的简单行为。</p>
-<p>第二原则： 学习的目的是彻底掌握，而不是记忆背诵。</p>
-<p>第三原则： 学习的过程中不允许摄入其他信息。</p>
-<ul>
-<li><p>操作系统</p>
-<p>操作系统导论复读 + 实现操作系统</p>
-</li>
-<li><p>数据结构与算法</p>
-<p>ACwing + LeetCode</p>
-</li>
-<li><p>计算机网络</p>
-<p>基础知识快速记忆。</p>
-</li>
-<li><p>实际项目</p>
-<p>json库编写。</p>
-<p>C++ 网络编程。</p>
-<p>引擎开发。</p>
-</li>
-<li><p>英语</p>
-</li>
-</ul>
-<h1 id="兴趣爱好"><a href="#兴趣爱好" class="headerlink" title="兴趣爱好"></a>兴趣爱好</h1><ul>
-<li>学习历史</li>
-<li>制作音乐</li>
-<li>编写游戏</li>
-</ul>
-<h1 id="当前的时间规划"><a href="#当前的时间规划" class="headerlink" title="当前的时间规划"></a>当前的时间规划</h1><p>第零原则：只有黑白地带，没有灰色地带。当前个体有责任和义务记录每一时段的身体与大脑在进行哪方面的活动，无法定义的时间段是不被议会接受的。这条原则意味着手机与信息流服务将从当前个体的生活中近乎消失。</p>
-<p>第一原则：睡眠&gt;学习&gt;运动&gt;兴趣爱好&gt;追逐多巴胺。</p>
-<p>第二原则：尽可能地多学习。</p>
-<p>第三原则：对于优先级的前三者，要防止饥饿现象发生。</p>
-<ul>
-<li>八点</li>
-</ul>
-<p>起床，服用每天需要服用的药物。</p>
-<p>洗漱，如厕，下楼购置早餐。</p>
-<p>查看手机。</p>
-<p>制定今天计划。</p>
-<ul>
-<li>九点</li>
-</ul>
-<p>开始学习</p>
-<ul>
-<li>十一点半</li>
-</ul>
-<p>做饭</p>
-<ul>
-<li>十二点半</li>
-</ul>
-<p>洗碗</p>
-<ul>
-<li>一点</li>
-</ul>
-<p>学习</p>
-<ul>
-<li>六点</li>
-</ul>
-<p>做饭</p>
-<ul>
-<li>七点</li>
-</ul>
-<p>兴趣爱好时间</p>
-<ul>
-<li>九点</li>
-</ul>
-<p>学习</p>
-<ul>
-<li>十一点</li>
-</ul>
-<p>锻炼+跑步+洗澡</p>
-<ul>
-<li>十二点</li>
-</ul>
-<p>入睡</p>
-<h1 id="为什么你应当听从本文建议"><a href="#为什么你应当听从本文建议" class="headerlink" title="为什么你应当听从本文建议"></a>为什么你应当听从本文建议</h1><p>众所周知，这具身体与大脑长期以来遭受着一些苦难，生理上的与心理上的。为了对抗这种苦难，对抗现实的引力与内心的折磨，也为了让能报复这一切的日子早日到来，我们呼吁<strong>所有个体</strong>遵循本文的建议，并在有充分根据的情况下对其进行改进或修改。</p>
-<p>对于所有明显违背本文宗旨的个体，议会也会有恰当或者严厉的处罚措施。</p>
-<p>限制我们的不是天空，不是大海，也不会是身体与大脑。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/16/%E5%A4%9A%E6%96%B9%E9%9D%A2%E7%9A%84%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1016,10 +935,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-16 04:00:00 / 修改时间：18:44:12" itemprop="dateCreated datePublished" datetime="2020-09-16T04:00:00+08:00">2020-09-16</time>
+              <time title="创建时间：2020-09-16 04:00:00" itemprop="dateCreated datePublished" datetime="2020-09-16T04:00:00+08:00">2020-09-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-19 21:44:12" itemprop="dateModified" datetime="2020-09-19T21:44:12+08:00">2020-09-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1055,211 +980,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h4 id="x日程表"><a href="#x日程表" class="headerlink" title="x日程表"></a>x日程表</h4><table>
-<thead>
-<tr>
-<th>时间</th>
-<th align="center">类别</th>
-<th align="center">具体事项</th>
-<th align="center">时间</th>
-<th align="center">类别</th>
-<th align="right">具体事项</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">0:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>1:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">1:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>2:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">2:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>3:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">3:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>4:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">4:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>5:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">5:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>6:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">6:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>7:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">7:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>8:00</td>
-<td align="center">学习</td>
-<td align="center"></td>
-<td align="center">8:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>9:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">9:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>10:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">10:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>11:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">11:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>12:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">12:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>13:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">13:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>14:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">14:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>15:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">15:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>16:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">16:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>17:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">17:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>18:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">18:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>19:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">19:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>20:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">20:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>21:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">21:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>22:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">22:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td>23:00</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">23:30</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
-
+          <h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h4 id="x日程表"><a href="#x日程表" class="headerlink" title="x日程表"></a>x日程表</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/16/test/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1454,5 +1183,5 @@
 	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/nico.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
